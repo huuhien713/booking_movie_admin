@@ -2,21 +2,34 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
+
 import { logout } from '../../../services/Slices/authSlice';
 
 const Title = () => {
     const { user } = useSelector(state => state.authSlice);
-    
+
     const dispatch = useDispatch();
 
     const handleLogout = () => {
-        console.log(user);
         dispatch(logout());
+    }
+    
+    const handleInfo = () => {
+        Swal.fire({
+            icon: 'info',
+            title: 'My Info',
+            html: `<p style="text-align: left">
+                <span style="display: block">Name: ${user.hoTen}</span><br/>
+                <span style="display: block">Phone: ${user.soDT}</span><br/>
+                <span style="display: block">Account: ${user.taiKhoan}</span><br/>
+                <span style="display: block">Email: ${user.email}</span><br/>
+            </p>`,
+        })
     }
 
     return (
         <Wrapper>
-            <img src="https://scontent.fsgn2-4.fna.fbcdn.net/v/t39.30808-1/305582971_447145290781534_7259926296261216391_n.jpg?stp=dst-jpg_p320x320&_nc_cat=1&ccb=1-7&_nc_sid=c6021c&_nc_ohc=QOspP_-QvvMAX8PRlZ9&_nc_ht=scontent.fsgn2-4.fna&oh=00_AfCbpHIEZko0Bl6TGpp8JH8YuFNl6J5OxUOOwDZz0HtkYQ&oe=638A7CFA" alt="avt" />
+            <img onClick={handleInfo} src="https://scontent.fsgn2-4.fna.fbcdn.net/v/t39.30808-1/305582971_447145290781534_7259926296261216391_n.jpg?stp=dst-jpg_p320x320&_nc_cat=1&ccb=1-7&_nc_sid=c6021c&_nc_ohc=QOspP_-QvvMAX8PRlZ9&_nc_ht=scontent.fsgn2-4.fna&oh=00_AfCbpHIEZko0Bl6TGpp8JH8YuFNl6J5OxUOOwDZz0HtkYQ&oe=638A7CFA" alt="avt" />
             <h3 onClick={handleLogout}>LogOut</h3>
             <strong>|</strong>
             <h3>{user.hoTen}</h3>
